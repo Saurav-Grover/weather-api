@@ -2,15 +2,15 @@
 
 ## Tech Stack Rationale
 
-| Technology | Rationale |
-|---|---|
-| Java 21 | Latest LTS with records, pattern matching, virtual threads support |
-| Spring Boot 3.3 | Production-ready framework with excellent ecosystem |
-| WebClient | Non-blocking HTTP client, replacement for RestTemplate |
-| Caffeine | High-performance in-memory cache for JVM |
-| Resilience4j | Lightweight fault tolerance library designed for Java |
-| H2 | Zero-config embedded database for development/demo |
-| Maven | Standard build tool with mature dependency management |
+| Technology      | Rationale                                                          |
+|-----------------|--------------------------------------------------------------------|
+| Java 21         | Latest LTS with records, pattern matching, virtual threads support |
+| Spring Boot 3.3 | Production-ready framework with excellent ecosystem                |
+| WebClient       | Non-blocking HTTP client, replacement for RestTemplate             |
+| Caffeine        | High-performance in-memory cache for JVM                           |
+| Resilience4j    | Lightweight fault tolerance library designed for Java              |
+| H2              | Zero-config embedded database for development/demo                 |
+| Maven           | Standard build tool with mature dependency management              |
 
 ## Architecture
 
@@ -54,11 +54,11 @@
 
 ## Caching Strategy
 
-| Cache Name | TTL | Max Size | Rationale |
-|---|---|---|---|
+| Cache Name       | TTL        | Max Size    | Rationale                              |
+|------------------|------------|-------------|----------------------------------------|
 | `currentWeather` | 10 minutes | 500 entries | Weather updates every ~15 min upstream |
-| `forecast` | 30 minutes | 200 entries | Forecasts change less frequently |
-| `locationSearch` | 60 minutes | 300 entries | Location data is essentially static |
+| `forecast`       | 30 minutes | 200 entries | Forecasts change less frequently       |
+| `locationSearch` | 60 minutes | 300 entries | Location data is essentially static    |
 
 Cache keys use lowercase location names to avoid duplicates (e.g., "London" and "london" hit same cache entry).
 
@@ -98,16 +98,17 @@ Cache keys use lowercase location names to avoid duplicates (e.g., "London" and 
 
 ## Error Handling Strategy
 
-| Exception | HTTP Status | Message |
-|---|---|---|
-| `LocationNotFoundException` | 404 | Location-specific message |
-| `UpstreamApiException` | 502 | "Weather service is temporarily unavailable" |
-| `MethodArgumentNotValidException` | 400 | Field-level validation errors |
-| `ConstraintViolationException` | 400 | Constraint violation details |
-| `MissingServletRequestParameterException` | 400 | Missing parameter name |
-| `Exception` (generic) | 500 | "An unexpected error occurred" |
+| Exception                                 | HTTP Status | Message                                      |
+|-------------------------------------------|-------------|----------------------------------------------|
+| `LocationNotFoundException`               | 404         | Location-specific message                    |
+| `UpstreamApiException`                    | 502         | "Weather service is temporarily unavailable" |
+| `MethodArgumentNotValidException`         | 400         | Field-level validation errors                |
+| `ConstraintViolationException`            | 400         | Constraint violation details                 |
+| `MissingServletRequestParameterException` | 400         | Missing parameter name                       |
+| `Exception` (generic)                     | 500         | "An unexpected error occurred"               |
 
 All error responses follow the format:
+
 ```json
 {
   "status": 502,

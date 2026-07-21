@@ -1,6 +1,8 @@
 # Weather Data Service
 
-A Spring Boot microservice that provides weather data by aggregating information from [WeatherAPI.com](https://www.weatherapi.com/). Features include current weather, multi-day forecasts, location search, and favourite locations management.
+A Spring Boot microservice that provides weather data by aggregating information
+from [WeatherAPI.com](https://www.weatherapi.com/). Features include current weather, multi-day forecasts, location
+search, and favourite locations management.
 
 ## Prerequisites
 
@@ -45,6 +47,7 @@ curl "http://localhost:8080/api/v1/weather?location=London"
 ```
 
 Response:
+
 ```json
 {
   "data": {
@@ -69,6 +72,7 @@ curl "http://localhost:8080/api/v1/forecast?location=London&days=3"
 ```
 
 Response:
+
 ```json
 {
   "data": {
