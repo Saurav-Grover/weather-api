@@ -35,8 +35,8 @@ class LocationControllerIT {
 
         mockMvc.perform(get("/api/v1/locations/search").param("query", "Lond"))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$[0].name").value("London"))
-            .andExpect(jsonPath("$[1].name").value("Londonderry"));
+            .andExpect(jsonPath("$.locations[0].name").value("London"))
+            .andExpect(jsonPath("$.locations[1].name").value("Londonderry"));
     }
 
     @Test
