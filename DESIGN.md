@@ -123,7 +123,6 @@ Given more time, the following enhancements would improve the service:
 
 1. **Redis Cache** — Replace Caffeine with Redis for distributed caching across multiple instances
 2. **PostgreSQL** — Replace H2 with PostgreSQL for persistent favourite storage
-3. **OpenAPI Spec** — Add springdoc-openapi for auto-generated API documentation
 4. **Docker** — Containerize with multi-stage Dockerfile
 5. **Observability** — Add Micrometer metrics, distributed tracing (OpenTelemetry)
 6. **API Versioning** — URI versioning is already in place; add header-based versioning
