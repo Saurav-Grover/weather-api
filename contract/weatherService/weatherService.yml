@@ -1,0 +1,1482 @@
+openapi: 3.0.0
+info:
+  title: WeatherAPI.com APIs
+  version: 1.0.0
+  description: >-
+    # WeatherAPI.com API Collection
+
+
+    This collection provides access to the WeatherAPI.com API endpoints for
+    weather data, forecasts, and related services.
+
+
+    ## 🔧 Setup
+
+
+    ### Environments
+
+
+    This collection works with two environments:
+
+
+    - **WeatherAPI - Development**: For testing and development
+    
+    - **WeatherAPI - Production**: For production use
+    
+    
+    ### Required Variables
+
+
+    Each environment includes:
+
+
+    - `api_key` (secret): Your WeatherAPI.com API key - Get yours at
+    [https://www.weatherapi.com/my/](https://www.weatherapi.com/my/)
+    
+    - `base_url`: Base URL for API endpoints
+    ([https://api.weatherapi.com/v1](https://api.weatherapi.com/v1))
+    
+    - `location`: Default location for testing (e.g., "London", coordinates, zip
+    code)
+    
+    
+    ### Getting Started
+
+
+    1. Select an environment (Development or Production)
+    
+    2. Add your API key to the `api_key` variable in the selected environment
+    
+    3. Update the `location` variable if needed
+    
+    4. Start making requests!
+    
+    
+    ## 📝 Authentication
+
+
+    All requests require an API key passed as a query parameter:
+    `key={{api_key}}`
+servers:
+  - url: https://api.weatherapi.com/v1
+paths:
+  /current.json:
+    get:
+      summary: Current weather (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+        - name: aqi
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: pollen
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: lang
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: current_fields
+          in: query
+          schema:
+            type: string
+          example: string
+      responses:
+        '200':
+          description: Current weather response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+              example:
+                error:
+                  code: 7112
+                  message: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+              example:
+                error:
+                  code: 7112
+                  message: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+              example:
+                error:
+                  code: 7112
+                  message: string
+      tags:
+        - current.json
+      description: >-
+        ## Current Weather Data
+
+
+        Retrieves real-time weather information for a specified location.
+
+
+        ### Required Parameters
+
+        - **q** (query): Location identifier - can be:
+          - City name (e.g., "London")
+          - Latitude/longitude (e.g., "48.8567,2.3508")
+          - US zip code (e.g., "10001")
+          - UK postcode (e.g., "SW1")
+          - IP address (e.g., "100.0.0.1")
+          - IATA airport code (e.g., "JFK")
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+
+        ### Optional Parameters
+
+        - **aqi**: Include air quality data (yes/no, default: no)
+
+        - **pollen**: Include pollen data (yes/no, default: no)
+
+        - **lang**: Response language code (e.g., "en", "es", "fr")
+
+        - **current_fields**: Comma-separated list of specific fields to return
+
+
+        ### Common Use Cases
+
+        - Display current weather on websites/apps
+
+        - Weather widgets and dashboards
+
+        - Location-based weather notifications
+
+        - Real-time weather monitoring
+
+
+        ### Response Highlights
+
+        Returns current temperature, conditions, wind speed, humidity, pressure,
+        visibility, UV index, and optional air quality/pollen data.
+    post:
+      summary: Bulk current weather (JSON) - POST body (q=bulk)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: bulk
+        - name: aqi
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: pollen
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: lang
+          in: query
+          schema:
+            type: string
+          example: string
+      responses:
+        '200':
+          description: Bulk current weather response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+              example:
+                error:
+                  code: 7112
+                  message: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+              example:
+                error:
+                  code: 7112
+                  message: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: object
+                    properties:
+                      code:
+                        type: integer
+                      message:
+                        type: string
+              example:
+                error:
+                  code: 7112
+                  message: string
+      tags:
+        - current.json
+      description: >-
+        ## Bulk Current Weather Data
+
+
+        Retrieves real-time weather information for multiple locations in a
+        single API call. This endpoint is optimized for fetching current weather
+        data for multiple locations simultaneously.
+
+
+        ### Required Parameters
+
+        - **q** (query): Must be set to "bulk" to enable bulk request mode
+
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+
+        ### Request Body (JSON)
+
+        The request body must contain a `locations` array with location objects:
+
+        ```json
+
+        {
+          "locations": [
+            {
+              "q": "London",
+              "custom_id": "location1"
+            },
+            {
+              "q": "48.8567,2.3508",
+              "custom_id": "location2"
+            }
+          ]
+        }
+
+        ```
+
+
+        Each location object contains:
+
+        - **q**: Location identifier (city name, coordinates, zip code, IP
+        address, etc.)
+
+        - **custom_id**: Optional custom identifier to match responses with
+        requests
+
+
+        ### Optional Parameters
+
+        - **aqi**: Include air quality data (yes/no, default: no)
+
+        - **pollen**: Include pollen data (yes/no, default: no)
+
+        - **lang**: Response language code (e.g., "en", "es", "fr")
+
+
+        ### Common Use Cases
+
+        - Fetching weather for multiple store/office locations
+
+        - Dashboard displays with multiple city weather
+
+        - Comparing weather across different regions
+
+        - Reducing API calls by batching location requests
+
+
+        ### Response Highlights
+
+        Returns an object with weather data for each location, keyed by the
+        custom_id or indexed sequentially. Each location includes current
+        temperature, conditions, wind, humidity, and optional air quality data.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                locations:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      q:
+                        type: string
+                      custom_id:
+                        type: string
+            example:
+              locations:
+                - q: string
+                  custom_id: string
+                - q: string
+                  custom_id: string
+  /forecast.json:
+    get:
+      summary: Forecast (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+        - name: days
+          in: query
+          schema:
+            type: integer
+          example: 7
+        - name: dt
+          in: query
+          schema:
+            type: string
+          example: '1999-06-07'
+        - name: unixdt
+          in: query
+          schema:
+            type: integer
+          example: 5705
+        - name: hour
+          in: query
+          schema:
+            type: integer
+          example: 13
+        - name: alerts
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: aqi
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: pollen
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: tp
+          in: query
+          schema:
+            type: integer
+          example: 15
+        - name: current_fields
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: day_fields
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: hour_fields
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: et0
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: lang
+          in: query
+          schema:
+            type: string
+          example: string
+      responses:
+        '200':
+          description: Forecast response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+      tags:
+        - forecast.json
+      description: >-
+        ## Weather Forecast Data
+
+
+        Retrieves weather forecast information for up to 14 days for a specified
+        location.
+
+
+        ### Required Parameters
+
+        - **q** (query): Location identifier - can be:
+          - City name (e.g., "Paris")
+          - Latitude/longitude (e.g., "48.8567,2.3508")
+          - US zip code (e.g., "10001")
+          - UK postcode (e.g., "SW1")
+          - IP address (e.g., "100.0.0.1")
+          - IATA airport code (e.g., "CDG")
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+        - **days** (query): Number of forecast days (1-14, default: 3)
+
+
+        ### Optional Parameters
+
+        - **dt**: Specific date for forecast (format: yyyy-MM-dd)
+
+        - **unixdt**: Unix timestamp for specific date
+
+        - **hour**: Specific hour for hourly forecast (0-23)
+
+        - **aqi**: Include air quality data (yes/no, default: no)
+
+        - **alerts**: Include weather alerts (yes/no, default: no)
+
+        - **lang**: Response language code (e.g., "en", "es", "fr")
+
+
+        ### Common Use Cases
+
+        - Multi-day weather forecasts for travel planning
+
+        - Hourly weather predictions for events
+
+        - Weather-dependent scheduling and logistics
+
+        - Agricultural and outdoor activity planning
+
+
+        ### Response Highlights
+
+        Returns daily and hourly forecasts including temperature, precipitation,
+        wind, humidity, sunrise/sunset times, moon phases, and optional alerts.
+  /history.json:
+    get:
+      summary: Historical weather (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+        - name: dt
+          in: query
+          schema:
+            type: string
+          example: '1999-06-07'
+        - name: unixdt
+          in: query
+          schema:
+            type: integer
+          example: 5705
+        - name: end_dt
+          in: query
+          schema:
+            type: string
+          example: '1999-06-07'
+        - name: unixend_dt
+          in: query
+          schema:
+            type: integer
+          example: 5705
+        - name: hour
+          in: query
+          schema:
+            type: integer
+          example: 13
+        - name: aqi
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: pollen
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: tp
+          in: query
+          schema:
+            type: integer
+          example: 15
+        - name: current_fields
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: day_fields
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: hour_fields
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: solar
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: et0
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: wind100mph
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: wind100kph
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: lang
+          in: query
+          schema:
+            type: string
+          example: string
+      responses:
+        '200':
+          description: History response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+      tags:
+        - history.json
+      description: >-
+        ## Historical Weather Data
+
+
+        Retrieves past weather information for a specified location and date
+        range. Access historical weather data going back several years.
+
+
+        ### Required Parameters
+
+        - **q** (query): Location identifier - can be:
+          - City name (e.g., "Tokyo")
+          - Latitude/longitude (e.g., "35.6762,139.6503")
+          - US zip code (e.g., "90210")
+          - UK postcode (e.g., "SW1")
+          - IP address (e.g., "100.0.0.1")
+          - IATA airport code (e.g., "LAX")
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+        - **dt** (query): Date for historical data (format: yyyy-MM-dd, e.g.,
+        "2023-06-15")
+
+
+        ### Optional Parameters
+
+        - **unixdt**: Unix timestamp for the date (alternative to dt)
+
+        - **end_dt**: End date for date range queries (format: yyyy-MM-dd)
+
+        - **unixend_dt**: Unix timestamp for end date
+
+        - **hour**: Specific hour for hourly data (0-23)
+
+        - **aqi**: Include air quality data (yes/no, default: no)
+
+        - **pollen**: Include pollen data (yes/no, default: no)
+
+        - **tp**: Time interval for data points (15, 30, 60 minutes)
+
+        - **lang**: Response language code (e.g., "en", "es", "fr")
+
+        - **solar**: Include solar radiation data (yes/no, default: no)
+
+        - **et0**: Include evapotranspiration data (yes/no, default: no)
+
+
+        ### Common Use Cases
+
+        - Weather analysis and research
+
+        - Historical weather comparisons
+
+        - Climate trend analysis
+
+        - Verifying past weather conditions for insurance/legal purposes
+
+        - Agricultural planning based on historical patterns
+
+
+        ### Response Highlights
+
+        Returns historical weather data including temperature, precipitation,
+        wind speed, humidity, pressure, and optional air quality/solar data for
+        the specified date(s).
+  /future.json:
+    get:
+      summary: Future weather (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+        - name: dt
+          in: query
+          schema:
+            type: string
+          example: '1999-06-07'
+        - name: unixdt
+          in: query
+          schema:
+            type: integer
+          example: 5705
+        - name: aqi
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: pollen
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: current_fields
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: day_fields
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: hour_fields
+          in: query
+          schema:
+            type: string
+          example: string
+        - name: lang
+          in: query
+          schema:
+            type: string
+          example: string
+      responses:
+        '200':
+          description: Future response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+      tags:
+        - future.json
+      description: >-
+        ## Future Weather Data
+
+
+        Retrieves weather forecast information for dates beyond the standard
+        14-day forecast period. Access extended weather predictions for future
+        dates.
+
+
+        ### Required Parameters
+
+        - **q** (query): Location identifier - can be:
+          - City name (e.g., "Sydney")
+          - Latitude/longitude (e.g., "-33.8688,151.2093")
+          - US zip code (e.g., "10001")
+          - UK postcode (e.g., "SW1")
+          - IP address (e.g., "100.0.0.1")
+          - IATA airport code (e.g., "SYD")
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+        - **dt** (query): Future date for forecast (format: yyyy-MM-dd)
+
+
+        ### Optional Parameters
+
+        - **unixdt**: Unix timestamp for the future date (alternative to dt)
+
+        - **aqi**: Include air quality predictions (yes/no, default: no)
+
+        - **pollen**: Include pollen forecast (yes/no, default: no)
+
+        - **current_fields**: Comma-separated list of specific current fields to
+        return
+
+        - **day_fields**: Comma-separated list of specific daily fields to
+        return
+
+        - **hour_fields**: Comma-separated list of specific hourly fields to
+        return
+
+        - **lang**: Response language code (e.g., "en", "es", "fr")
+
+
+        ### Common Use Cases
+
+        - Long-term event planning (weddings, conferences, outdoor events)
+
+        - Extended travel planning
+
+        - Agricultural seasonal planning
+
+        - Construction project scheduling
+
+        - Long-range weather trend analysis
+
+
+        ### Response Highlights
+
+        Returns extended forecast data including predicted temperature,
+        precipitation probability, wind conditions, and general weather patterns
+        for future dates beyond the standard forecast window.
+  /alerts.json:
+    get:
+      summary: Weather alerts (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+      responses:
+        '200':
+          description: Alerts response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+      tags:
+        - alerts.json
+      description: >-
+        ## Weather Alerts
+
+
+        Retrieves active weather alerts and warnings for a specified location.
+        Get real-time severe weather notifications issued by meteorological
+        agencies.
+
+
+        ### Required Parameters
+
+        - **q** (query): Location identifier - can be:
+          - City name (e.g., "Miami")
+          - Latitude/longitude (e.g., "25.7617,-80.1918")
+          - US zip code (e.g., "33101")
+          - UK postcode (e.g., "SW1")
+          - IP address (e.g., "100.0.0.1")
+          - IATA airport code (e.g., "MIA")
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+
+        ### Optional Parameters
+
+        None for this endpoint
+
+
+        ### Common Use Cases
+
+        - Emergency weather notification systems
+
+        - Travel safety alerts
+
+        - Event planning risk assessment
+
+        - Public safety applications
+
+        - Weather-dependent business operations monitoring
+
+        - Mobile app push notifications for severe weather
+
+
+        ### Response Highlights
+
+        Returns active weather alerts including:
+
+        - Alert type and severity level
+
+        - Headline and detailed description
+
+        - Effective and expiration times
+
+        - Affected areas
+
+        - Instructions and recommendations
+
+        - Issuing meteorological authority
+
+
+        Alerts may include warnings for hurricanes, tornadoes, floods, heat
+        waves, winter storms, and other severe weather conditions.
+  /marine.json:
+    get:
+      summary: Marine weather and tides (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+        - name: days
+          in: query
+          schema:
+            type: integer
+          example: 7
+        - name: dt
+          in: query
+          schema:
+            type: string
+          example: '1999-06-07'
+        - name: tides
+          in: query
+          schema:
+            type: string
+          example: 'no'
+        - name: lang
+          in: query
+          schema:
+            type: string
+          example: string
+      responses:
+        '200':
+          description: Marine response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+      tags:
+        - marine.json
+      description: >-
+        ## Marine Weather and Tides
+
+
+        Retrieves marine weather conditions and tide information for coastal and
+        ocean locations. Essential data for maritime activities and coastal
+        planning.
+
+
+        ### Required Parameters
+
+        - **q** (query): Location identifier - can be:
+          - City/port name (e.g., "Southampton")
+          - Latitude/longitude (e.g., "50.9097,-1.4044")
+          - Coastal coordinates
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+        - **days** (query): Number of forecast days (1-7, default: 7)
+
+
+        ### Optional Parameters
+
+        - **dt**: Specific date for marine forecast (format: yyyy-MM-dd)
+
+        - **tides**: Include tide information (yes/no, default: no)
+
+        - **lang**: Response language code (e.g., "en", "es", "fr")
+
+
+        ### Common Use Cases
+
+        - Sailing and boating trip planning
+
+        - Fishing expedition scheduling
+
+        - Surfing condition forecasts
+
+        - Maritime shipping and navigation
+
+        - Coastal construction planning
+
+        - Beach safety monitoring
+
+        - Port operations management
+
+
+        ### Response Highlights
+
+        Returns marine-specific weather data including:
+
+        - Sea temperature and conditions
+
+        - Wave height and swell information
+
+        - Wind speed and direction over water
+
+        - Visibility at sea
+
+        - Tide times and heights (when enabled)
+
+        - Water current information
+
+        - Marine weather warnings
+
+
+        Ideal for anyone planning activities on or near the water.
+  /search.json:
+    get:
+      summary: Search / autocomplete (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    key_0:
+                      type: string
+                    key_1:
+                      type: string
+                    key_2:
+                      type: string
+              example:
+                - key_0: string
+                  key_1: string
+                  key_2: string
+                - key_0: string
+      tags:
+        - search.json
+      description: >-
+        ## Location Search / Autocomplete
+
+
+        Searches for locations and provides autocomplete suggestions based on
+        partial input. Useful for implementing location search functionality in
+        applications.
+
+
+        ### Required Parameters
+
+        - **q** (query): Search query - partial or complete location name
+        (minimum 3 characters recommended)
+
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+
+        ### Optional Parameters
+
+        None for this endpoint
+
+
+        ### Common Use Cases
+
+        - Autocomplete dropdowns for location selection
+
+        - Location search functionality in weather apps
+
+        - Validating user-entered locations
+
+        - Finding location coordinates for other API calls
+
+        - Building location pickers with type-ahead suggestions
+
+
+        ### Response Highlights
+
+        Returns an array of matching locations with:
+
+        - Location name and region
+
+        - Country
+
+        - Latitude and longitude coordinates
+
+        - Location ID
+
+        - URL-friendly location identifier
+
+
+        Each result can be used as the 'q' parameter in other weather API
+        endpoints.
+  /timezone.json:
+    get:
+      summary: Time zone (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+      responses:
+        '200':
+          description: Time zone response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+      tags:
+        - timezone.json
+      description: >-
+        Returns location and time zone information in JSON format. This endpoint
+        provides the current local time, UTC offset, and time zone details for
+        any location specified by query parameter (city name, coordinates, IP
+        address, or US/Canada/UK zip code).
+
+
+        **Response includes:**
+
+
+        - Location details (name, region, country, coordinates)
+        
+        - Current local time and date
+        
+        - Time zone name and identifier
+        
+        - UTC offset in hours
+        
+        - Whether daylight saving time is currently active
+        
+        
+        **Use cases:**
+
+
+        - Display local time for any global location
+        
+        - Convert between time zones
+        
+        - Validate location-based time zone data
+  /astronomy.json:
+    get:
+      summary: Astronomy (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+        - name: dt
+          in: query
+          schema:
+            type: string
+          example: '1999-06-07'
+      responses:
+        '200':
+          description: Astronomy response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+      tags:
+        - astronomy.json
+      description: >-
+        ## Astronomy Data
+
+
+        Retrieves astronomical information for a specified location and date.
+        Get sunrise, sunset, moonrise, moonset, moon phases, and other celestial
+        data.
+
+
+        ### Required Parameters
+
+        - **q** (query): Location identifier - can be:
+          - City name (e.g., "Cairo")
+          - Latitude/longitude (e.g., "30.0444,31.2357")
+          - US zip code (e.g., "10001")
+          - UK postcode (e.g., "SW1")
+          - IP address (e.g., "100.0.0.1")
+          - IATA airport code (e.g., "CAI")
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+        - **dt** (query): Date for astronomy data (format: yyyy-MM-dd)
+
+
+        ### Optional Parameters
+
+        None for this endpoint
+
+
+        ### Common Use Cases
+
+        - Photography planning (golden hour, blue hour)
+
+        - Astronomy and stargazing applications
+
+        - Outdoor activity scheduling
+
+        - Religious observance timing
+
+        - Agricultural planning
+
+        - Solar panel efficiency calculations
+
+        - Tide prediction (moon phase correlation)
+
+        - Event planning around daylight hours
+
+
+        ### Response Highlights
+
+        Returns detailed astronomical information including:
+
+        - Sunrise and sunset times
+
+        - Moonrise and moonset times
+
+        - Moon phase and illumination percentage
+
+        - Solar noon time
+
+        - Day length
+
+        - Twilight times (civil, nautical, astronomical)
+
+
+        Perfect for photographers, astronomers, outdoor enthusiasts, and anyone
+        needing precise celestial timing information.
+  /sports.json:
+    get:
+      summary: Sports events (JSON)
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+          example: '{{location}}'
+      responses:
+        '200':
+          description: Sports response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+      tags:
+        - sports.json
+      description: >-
+        ## Sports Events
+
+
+        Retrieves information about upcoming sports events and matches for a
+        specified location. Get schedules for various sports including football,
+        cricket, and golf.
+
+
+        ### Required Parameters
+
+        - **q** (query): Location identifier - can be:
+          - City name (e.g., "Manchester")
+          - Latitude/longitude (e.g., "53.4808,-2.2426")
+          - Country name (e.g., "England")
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+
+        ### Optional Parameters
+
+        None for this endpoint
+
+
+        ### Common Use Cases
+
+        - Sports event planning and scheduling
+
+        - Travel planning for sports fans
+
+        - Venue weather coordination
+
+        - Sports broadcasting preparation
+
+        - Event management and logistics
+
+        - Sports tourism applications
+
+        - Fantasy sports planning
+
+        - Ticket sales and attendance forecasting
+
+
+        ### Response Highlights
+
+        Returns information about upcoming sports events including:
+
+        - Event name and type (football, cricket, golf, etc.)
+
+        - Match details and teams
+
+        - Event date and time
+
+        - Stadium or venue information
+
+        - Tournament or league information
+
+        - Event location
+
+
+        Useful for combining sports schedules with weather forecasts to plan
+        attendance or outdoor viewing events.
+  /ip.json:
+    get:
+      summary: IP lookup (JSON)
+      parameters:
+        - name: q
+          in: query
+          description: IPv4 or IPv6 address to lookup.
+          schema:
+            type: string
+          example: string
+      responses:
+        '200':
+          description: IP lookup response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key_0:
+                    type: integer
+                  key_1:
+                    type: integer
+                  key_2:
+                    type: number
+              example:
+                key_0: 9623
+                key_1: 2164
+                key_2: 3205.4823401553235
+      tags:
+        - ip.json
+      description: >-
+        ## IP Address Lookup
+
+
+        Retrieves geographical location information from an IP address. Useful
+        for determining location-based weather without requiring explicit
+        location input from users.
+
+
+        ### Required Parameters
+
+        - **q** (query): IPv4 or IPv6 address to lookup (e.g., "8.8.8.8" or
+        "2001:4860:4860::8888")
+
+        - **key** (query): Your WeatherAPI.com API key for authentication
+
+
+        ### Optional Parameters
+
+        None for this endpoint
+
+
+        ### Common Use Cases
+
+        - Automatic location detection for weather apps
+
+        - Providing localized weather without user input
+
+        - Geo-targeting weather content
+
+        - Analytics and location-based services
+
+        - Default location setting for new users
+
+        - IP-based weather widgets
+
+        - Location verification for services
+
+
+        ### Response Highlights
+
+        Returns geographical information for the IP address including:
+
+        - City name
+
+        - Region/state
+
+        - Country name and code
+
+        - Latitude and longitude coordinates
+
+        - Time zone information
+
+        - ISP information
+
+
+        The returned location data can be used directly as the 'q' parameter in
+        other weather API endpoints to fetch weather information for that
+        location.
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key
+security:
+  - ApiKeyAuth: [ ]
