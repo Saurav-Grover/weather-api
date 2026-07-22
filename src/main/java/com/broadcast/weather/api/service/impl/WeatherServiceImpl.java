@@ -23,4 +23,5 @@ public class WeatherServiceImpl implements WeatherService {
         log.info("Fetching current weather for: {}", location);
         return weatherMapper.mapToWeatherResponse(weatherApiClient.getCurrentWeather(location));
     }
+
 }
