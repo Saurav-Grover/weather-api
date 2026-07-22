@@ -26,7 +26,7 @@ spring:
 weather:
   api:
     base-url: ${WEATHER_API_BASE_URL:http://api.weatherapi.com/v1}
-    key: ${WEATHER_API_KEY:your-api-key-here}
+    key: ${WEATHER_API_KEY:6fe723eb79cc448c96c153213261807}
     timeout-ms: ${WEATHER_API_TIMEOUT_MS:5000}
 
 resilience4j:
