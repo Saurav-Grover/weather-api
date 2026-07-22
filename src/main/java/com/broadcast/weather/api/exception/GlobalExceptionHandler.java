@@ -44,6 +44,11 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.BAD_REQUEST, "Validation failed: " + ex.getMessage());
     }
 
+    @ExceptionHandler(NoFavouritesFound.class)
+    public ResponseEntity<ErrorResponse> handleEmptyFavourites(NoFavouritesFound ex) {
+        return buildErrorResponse(HttpStatus.NOT_FOUND, "Data Unavailable: " + ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         log.error("Unexpected error", ex);

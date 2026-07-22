@@ -95,21 +95,29 @@ public class WeatherApiClient {
 
     @SuppressWarnings("unused")
     private WeatherApiCurrentResponse getCurrentWeatherFallback(String location, Throwable t) {
-        if (t instanceof LocationNotFoundException) throw (LocationNotFoundException) t;
-        log.warn("Circuit breaker fallback triggered for getCurrentWeather, location: {}, cause: {}", location, t.getMessage());
+        if (t instanceof LocationNotFoundException) {
+            throw (LocationNotFoundException) t;
+        }
+        log.warn("Circuit breaker fallback triggered for getCurrentWeather, location: {}, cause: {}", location,
+            t.getMessage());
         throw new UpstreamApiException("Weather service unavailable. Please try again later.", t);
     }
 
     @SuppressWarnings("unused")
     private WeatherApiForecastResponse getForecastFallback(String location, int days, Throwable t) {
-        if (t instanceof LocationNotFoundException) throw (LocationNotFoundException) t;
-        log.warn("Circuit breaker fallback triggered for getForecast, location: {}, days: {}, cause: {}", location, days, t.getMessage());
+        if (t instanceof LocationNotFoundException) {
+            throw (LocationNotFoundException) t;
+        }
+        log.warn("Circuit breaker fallback triggered for getForecast, location: {}, days: {}, cause: {}", location,
+            days, t.getMessage());
         throw new UpstreamApiException("Forecast service unavailable. Please try again later.", t);
     }
 
     @SuppressWarnings("unused")
     private List<WeatherApiSearchResponse> searchLocationsFallback(String query, Throwable t) {
-        if (t instanceof UpstreamApiException) throw (UpstreamApiException) t;
+        if (t instanceof UpstreamApiException) {
+            throw (UpstreamApiException) t;
+        }
         log.warn("Circuit breaker fallback triggered for searchLocations, query: {}, cause: {}", query, t.getMessage());
         throw new UpstreamApiException("Location search service unavailable. Please try again later.", t);
     }

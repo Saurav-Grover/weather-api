@@ -1,9 +1,11 @@
 package com.broadcast.weather.api.controller;
 
+import com.broadcast.weather.api.exception.NoFavouritesFound;
 import com.broadcast.weather.api.model.Favourite;
 import com.broadcast.weather.api.model.FavouriteListResponse;
 import com.broadcast.weather.api.model.FavouriteRequest;
 import com.broadcast.weather.api.service.FavouriteService;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,7 +35,14 @@ public class FavouriteController implements FavouriteServiceApi {
     @Override
     public ResponseEntity<FavouriteListResponse> listFavourites() {
         FavouriteListResponse response = new FavouriteListResponse();
-        response.setFavourites(favouriteService.getAllFavourites());
+
+        response.setFavourites(
+            Optional.ofNullable(favouriteService.getAllFavourites())
+                .filter(favourites -> !favourites.isEmpty())
+                .orElseThrow(() -> new NoFavouritesFound("No favourite locations found"))
+        );
+
         return ResponseEntity.ok(response);
     }
+
 }

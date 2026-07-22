@@ -22,29 +22,38 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 @SpringBootTest
 class CacheIT {
 
-    @Autowired private WeatherService weatherService;
-    @Autowired private ForecastService forecastService;
-    @Autowired private LocationService locationService;
-    @Autowired private CacheManager cacheManager;
-
-    @MockitoBean private WeatherApiClient weatherApiClient;
-
     private static final String LOCATION = "London";
+    @Autowired
+    private WeatherService weatherService;
+    @Autowired
+    private ForecastService forecastService;
+    @Autowired
+    private LocationService locationService;
+    @Autowired
+    private CacheManager cacheManager;
+    @MockitoBean
+    private WeatherApiClient weatherApiClient;
 
     private WeatherApiCurrentResponse mockCurrentResponse() {
-        var location = new WeatherApiCurrentResponse.LocationDto(LOCATION, "City of London", "United Kingdom", 51.52, -0.11, "2024-01-15 12:00");
+        var location =
+            new WeatherApiCurrentResponse.LocationDto(LOCATION, "City of London", "United Kingdom", 51.52, -0.11,
+                "2024-01-15 12:00");
         var condition = new WeatherApiCurrentResponse.ConditionDto("Sunny", "//cdn.icon.png");
-        var current = new WeatherApiCurrentResponse.CurrentDto(18.0, 64.4, condition, 10.0, 65, 17.0, 62.6, 3.0, "2024-01-15 12:00");
+        var current = new WeatherApiCurrentResponse.CurrentDto(18.0, 64.4, condition, 10.0, 65, 17.0, 62.6, 3.0,
+            "2024-01-15 12:00");
         return new WeatherApiCurrentResponse(location, current);
     }
 
     private WeatherApiForecastResponse mockForecastResponse() {
-        var location = new WeatherApiCurrentResponse.LocationDto(LOCATION, "City of London", "United Kingdom", 51.52, -0.11, "2024-01-15 12:00");
+        var location =
+            new WeatherApiCurrentResponse.LocationDto(LOCATION, "City of London", "United Kingdom", 51.52, -0.11,
+                "2024-01-15 12:00");
         var condition = new WeatherApiCurrentResponse.ConditionDto("Sunny", "//cdn.icon.png");
         var day = new WeatherApiForecastResponse.DayDto(18.0, 10.0, 14.0, 20.0, condition, 5);
         var forecastDay = new WeatherApiForecastResponse.ForecastDayDto("2024-01-15", day);
         var forecast = new WeatherApiForecastResponse.ForecastDto(List.of(forecastDay));
-        var current = new WeatherApiCurrentResponse.CurrentDto(18.0, 64.4, condition, 10.0, 65, 17.0, 62.6, 3.0, "2024-01-15 12:00");
+        var current = new WeatherApiCurrentResponse.CurrentDto(18.0, 64.4, condition, 10.0, 65, 17.0, 62.6, 3.0,
+            "2024-01-15 12:00");
         return new WeatherApiForecastResponse(location, current, forecast);
     }
 
