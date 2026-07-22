@@ -29,13 +29,13 @@ public interface WeatherMapper {
     @Mapping(target = "data.windSpeedKph", source = "current.windKph")
     @Mapping(target = "data.humidity", source = "current.humidity")
     @Mapping(target = "data.lastUpdated", source = "current.lastUpdated", qualifiedByName = "parseLastUpdated")
-    @Mapping(target = "source", ignore = true)
+    @Mapping(target = "source", constant = "weatherapi.com")
     WeatherResponse mapToWeatherResponse(WeatherApiCurrentResponse response);
 
     @Mapping(target = "data.location", source = "location.name")
     @Mapping(target = "data.country", source = "location.country")
     @Mapping(target = "data.days", source = "forecast.forecastDay")
-    @Mapping(target = "source", ignore = true)
+    @Mapping(target = "source", constant = "weatherapi.com")
     ForecastResponse mapToForecastResponse(WeatherApiForecastResponse response);
 
     @Mapping(target = "date", expression = "java(java.time.LocalDate.parse(forecastDayDto.date()))")

@@ -7,6 +7,7 @@ import com.broadcast.weather.api.service.LocationService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,7 @@ public class LocationServiceImpl implements LocationService {
     private final WeatherMapper mapper;
 
     @Override
+    @Cacheable(value = "locationSearch", key = "#query.toLowerCase()")
     public List<Location> searchLocations(String query) {
         log.info("Searching locations for query: {}", query);
         return mapper.mapToLocationList(weatherApiClient.searchLocations(query));

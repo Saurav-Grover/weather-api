@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import com.broadcast.weather.api.client.WeatherApiClient;
 import com.broadcast.weather.api.client.dto.WeatherApiCurrentResponse;
@@ -45,6 +46,7 @@ class WeatherControllerIT {
     @Test
     void shouldReturn400WhenLocationParamMissing() throws Exception {
         mockMvc.perform(get("/api/v1/weather"))
+            .andDo(print())
             .andExpect(status().isBadRequest());
     }
 
@@ -54,6 +56,7 @@ class WeatherControllerIT {
             .thenThrow(new UpstreamApiException("Service unavailable"));
 
         mockMvc.perform(get("/api/v1/weather").param("location", "London"))
+            .andDo(print())
             .andExpect(status().isBadGateway())
             .andExpect(jsonPath("$.status").value(502));
     }
